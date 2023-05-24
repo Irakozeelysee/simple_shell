@@ -11,6 +11,7 @@ void execute_command(char *command)
 	int status;
 
 	char *args[2];
+
 	args[0] = command;
 	args[1] = "NULL";
 

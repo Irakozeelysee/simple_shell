@@ -2,6 +2,8 @@
 
 /**
  * main - Entry point of the program
+ * @argc: The number of command-line arguments
+ * @argv: An array of command-line arguments
  *
  * Return: Always 0
  */
@@ -11,7 +13,7 @@ int main(int argc, char *argv[])
 	if (argc == 1)
 	{
 		char command[100];
-	
+
 		while (1)
 		{
 			display_prompt();
