@@ -23,9 +23,11 @@ void execute_command(char *command)
 	}
 	else if (pid == 0)
 	{
-		execvp(args[0], args);
-		perror("execvp");
-		exit(EXIT_FAILURE);
+		char *envp[] = { NULL };
+		if (execve(args[0], args, envp) == -1)
+		{
+			perror("execvp");
+			exit(EXIT_FAILURE);
 	}
 	else
 	{
