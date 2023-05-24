@@ -1,11 +1,10 @@
 #include "shell.h"
+#include <unistd.h>
 
 /**
- * display_prompt - Displays the prompt that indicates where to start.
+ * display_prompt - Displays the shell prompt.
  */
-
 void display_prompt(void)
 {
-	char prompt[] = "$ ";
-	write(STDOUT_FILENO, prompt, sizeof(prompt) - 1);
+	write(STDOUT_FILENO, "$ ", 1);
 }
