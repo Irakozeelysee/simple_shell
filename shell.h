@@ -5,6 +5,9 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <sys/wait.h>
+#include <sys/types.h>
+#include <string.h>
+#define MAX_ARGS 10
 
 /* Function prototypes */
 void display_prompt(void);

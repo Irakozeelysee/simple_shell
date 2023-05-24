@@ -10,10 +10,16 @@ void execute_command(char *command)
 	pid_t pid;
 	int status;
 
-	char *args[2];
+	char *args[MAX_ARGS];
+	int num_args = 0;
 
-	args[0] = command;
-	args[1] = NULL;
+	args[num_args] = strtok(command, " \n");
+	while (args[num_args] != NULL)
+	{
+		num_args++;
+		args[num_args] = strtok(NULL, " \n");
+	}
+	args[num_args] = NULL;
 
 	pid = fork();
 	if (pid == -1)
@@ -26,8 +32,9 @@ void execute_command(char *command)
 		char *envp[] = { NULL };
 		if (execve(args[0], args, envp) == -1)
 		{
-			perror("execvp");
+			perror("execve");
 			exit(EXIT_FAILURE);
+		}
 	}
 	else
 	{
