@@ -21,6 +21,7 @@ int main(int argc, char *argv[])
 			{
 				end_of_file();
 			}
+			command[custom_strcspn(command, "\n")] = '\0';
 			execute_command(command);
 		}
 	}
@@ -36,6 +37,7 @@ int main(int argc, char *argv[])
 		}
 		while (fgets(line, sizeof(line), file) != NULL)
 		{
+			line[custom_strcspn(line, "\n")] = '\0';
 			execute_command(line);
 		}
 		fclose(file);
