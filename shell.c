@@ -1,84 +1,42 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <sys/wait.h>
-#include "main.h"
+#include "shell.h"
 
 /**
- * display_prompt - displays the prompt that indicates where to start.
- * 
- * Return: void
- */
-void display_prompt(void)
-{
-	printf("$ ");
-}
-
-/**
- * end_of_file - checks the end of the line Ctrl+D
+ * main - Entry point of the program
  *
- * Return: void
+ * Return: Always 0
  */
-void end_of_file(void)
-{
-	printf("\n");
-	exit(0);
-}
 
-/**
- * main - entry point of the program
- * 
- * Return: 0 on success
- */
-int main(void)
+int main(int argc, char *argv[])
 {
-	char command[100];
-	char *args[100];
-	int result;
-	pid_t pid;
-	int status;
-	char *token;
-	int i = 0;
-
-	while (1)
+	if (argc == 1)
 	{
-		display_prompt();
-		if (fgets(command, sizeof(command), stdin) == NULL)
+		char command[100];
+	
+		while (1)
 		{
-			end_of_file();
-		}
-		command[strcspn(command, "\n")] = '\0';
-		token = strtok(command, " ");
-		while (token != NULL)
-		{
-			args[i] = token;
-			i++;
-			token = strtok(NULL, " ");
-		}
-		args[i] = NULL;
-		pid = fork();
-		if (pid == -1)
-		{
-			perror("fork");
-			exit(EXIT_FAILURE);
-		}
-		else if (pid == 0)
-		{
-			result = execvp(args[0], args);
-			if (result == -1)
+			display_prompt();
+			if (fgets(command, sizeof(command), stdin) == NULL)
 			{
-				printf("Command not found\n");
-				exit(EXIT_FAILURE);
+				end_of_file();
 			}
-		}
-		else
-		{
-			if (wait(&status) == -1)
-			{
-				perror("wait");
-				exit(EXIT_FAILURE);
-			}
+			execute_command(command);
 		}
 	}
-	return (0);
+	else if (argc == 2)
+	{
+		FILE *file = fopen(argv[1], "r");
+		char line[100];
+
+		if (file == NULL)
+		{
+			perror("Error opening file");
+			return (EXIT_FAILURE);
+		}
+		while (fgets(line, sizeof(line), file) != NULL)
+		{
+			execute_command(line);
+		}
+		fclose(file);
+	}
+	return (EXIT_SUCCESS);
 }
