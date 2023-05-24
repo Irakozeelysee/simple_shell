@@ -6,5 +6,6 @@
 
 void display_prompt(void)
 {
-	printf("$ ");
+	char prompt[] = "$ ";
+	write(STDOUT_FILENO, prompt, sizeof(prompt) - 1);
 }

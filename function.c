@@ -27,6 +27,6 @@ size_t custom_strcspn(const char *str, const char *reject)
 			break;
 		}
 	}
-	return (i);
+	 return (i);
 }
 

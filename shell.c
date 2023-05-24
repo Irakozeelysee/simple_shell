@@ -12,18 +12,20 @@ int main(int argc, char *argv[])
 {
 	if (argc == 1)
 	{
-		char command[100];
-
+		char *command = NULL;
+		size_t command_size = 0;
+	
 		while (1)
 		{
 			display_prompt();
-			if (fgets(command, sizeof(command), stdin) == NULL)
+			if (getline(&command, &command_size, stdin) == -1)
 			{
 				end_of_file();
 			}
 			command[custom_strcspn(command, "\n")] = '\0';
 			execute_command(command);
 		}
+		free(command);
 	}
 	else if (argc == 2)
 	{
@@ -33,7 +35,7 @@ int main(int argc, char *argv[])
 		if (file == NULL)
 		{
 			perror("Error opening file");
-			return (EXIT_FAILURE);
+			return EXIT_FAILURE;
 		}
 		while (fgets(line, sizeof(line), file) != NULL)
 		{
@@ -43,5 +45,5 @@ int main(int argc, char *argv[])
 		fclose(file);
 	}
 	display_prompt();
-	return (EXIT_SUCCESS);
+	return EXIT_SUCCESS;
 }
