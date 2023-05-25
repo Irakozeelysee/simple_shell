@@ -21,9 +21,9 @@ extern char *error_ptr;
 
 void display_prompt(void);
 char *read_command(void);
-void execute_command(const char *command);
+void execute_command(const char *command, char *argv[]);
 void handle_errors(void);
 void display_command_not_found_error(void);
-void execute_child_process(const char *command);
+void execute_child_process(const char *command, char *arg[]);
 
 #endif /* _SHELL_H_ */

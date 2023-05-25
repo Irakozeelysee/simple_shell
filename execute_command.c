@@ -2,13 +2,14 @@
 
 /**
  * execute_command - Executes a command.
+ * @argv: the pointer to an arg
  * @command: The command to execute.
  */
-void execute_command(const char *command)
+void execute_command(const char *command, char *argv[])
 {
 	if (access(command, X_OK) == 0)
 	{
-		execute_child_process(command);
+		execute_child_process(command, argv);
 	}
 	else
 	{
@@ -17,16 +18,13 @@ void execute_command(const char *command)
 }
 /**
  * execute_child_process - Executes the command in a child process.
+ * @argv: the pointer to an arg
  * @command: The command to execute.
  */
-void execute_child_process(const char *command)
+void execute_child_process(const char *command, char *argv[])
 {
-	char *argv[2];
 	pid_t child_pid;
 	int status;
-
-	argv[0] = (char *)command;
-	argv[1] = NULL;
 
 	child_pid = fork();
 
