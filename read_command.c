@@ -11,7 +11,7 @@ char *read_command(void)
 	char *command = NULL;
 	size_t bufsize = 0;
 	ssize_t bytes_read;
-	
+
 	bytes_read = getline(&command, &bufsize, stdin);
 	if (bytes_read == -1)
 	{
