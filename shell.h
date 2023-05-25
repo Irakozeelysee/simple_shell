@@ -23,6 +23,7 @@ void display_prompt(void);
 char *read_command(void);
 void execute_command(const char *command, char *argv[]);
 void handle_errors(void);
+char *create_path_command(const char *path, const char *command);
 void display_command_not_found_error(void);
 void execute_child_process(const char *command, char *arg[]);
 
